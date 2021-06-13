@@ -78,27 +78,26 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
   private fun signOut(result: Result) {
     val activity = activity ?: return
     googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
-    googleSignInClient?.signOut().addOnSuccessListener { intent ->
-      activity?.startActivityForResult(intent, 0)
+    googleSignInClient?.signOut()?.addOnSuccessListener {
       result.success("success")
-    }.addOnFailureListener {
+    }?.addOnFailureListener {
       result.error("error", "${it.message}", null)
     };
   }
 
-  private fun isSignedIn(result: Result) :Boolean {
-    val activity = activity ?: return false;
+  private fun isSignedIn(result: Result) {
+    val activity = activity ?: return;
     googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
 
     val lastSignedInAccount = GoogleSignIn.getLastSignedInAccount(activity);
 
     if(lastSignedInAccount != null) {
       if (GoogleSignIn.hasPermissions(lastSignedInAccount)) {
-        result.success("success")
+        result.success("success");
       }
     }
 
-    result.error("error", "", null)
+    result.error("error", "", null);
   }
 
   private fun handleSignInResult(googleSignInAccount: GoogleSignInAccount) {

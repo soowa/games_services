@@ -73,6 +73,16 @@ abstract class GamesServicesPlatform extends PlatformInterface {
     throw UnimplementedError("not implemented.");
   }
 
+  /// To sign out the user
+  Future<String?> signOut() async {
+    throw UnimplementedError("not implemented.");
+  }
+
+  /// To verify the user is signed in/out
+  Future<bool> isSignedIn() async {
+    throw UnimplementedError("not implemented.");
+  }
+
   /// Show the iOS Access Point.
   Future<String?> showAccessPoint(AccessPointLocation location) async {
     throw UnimplementedError("not implemented.");
