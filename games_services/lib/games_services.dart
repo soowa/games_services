@@ -61,8 +61,9 @@ class GamesServices {
   }
 
   /// Check if the user is signed in
-  static Future<String?> isSignedIn() async {
-    return await GamesServicesPlatform.instance.isSignedIn();
+  static Future<bool> isSignedIn() async {
+    await GamesServicesPlatform.instance.isSignedIn();
+    return true;
   }
 
   /// Show the iOS Access Point.
