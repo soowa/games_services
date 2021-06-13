@@ -55,6 +55,16 @@ class GamesServices {
     return await GamesServicesPlatform.instance.signIn();
   }
 
+  /// To sign out the user.
+  static Future<String?> signOut() async {
+    return await GamesServicesPlatform.instance.signOut();
+  }
+
+  /// Check if the user is signed in
+  static Future<String?> isSignedIn() async {
+    return await GamesServicesPlatform.instance.isSignedIn();
+  }
+
   /// Show the iOS Access Point.
   static Future<String?> showAccessPoint(AccessPointLocation location) async {
     return await GamesServicesPlatform.instance.showAccessPoint(location);

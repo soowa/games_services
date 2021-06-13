@@ -75,6 +75,27 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
     activity.startActivityForResult(googleSignInClient?.signInIntent, RC_SIGN_IN)
   }
 
+  private fun signOut() {
+    val activity = activity ?: return
+    googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+    googleSignInClient?.signOut();
+  }
+
+  private fun isSignedIn(result: Result) :Boolean {
+    val activity = activity ?: return false;
+    googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+
+    val lastSignedInAccount = GoogleSignIn.getLastSignedInAccount(activity);
+
+    if(lastSignedInAccount != null) {
+      if (GoogleSignIn.hasPermissions(lastSignedInAccount)) {
+        return true
+      }
+    }
+
+    return false;
+  }
+
   private fun handleSignInResult(googleSignInAccount: GoogleSignInAccount) {
     val activity = this.activity!!
     achievementClient = Games.getAchievementsClient(activity, googleSignInAccount)
@@ -253,6 +274,12 @@ class GamesServicesPlugin(private var activity: Activity? = null) : FlutterPlugi
       Methods.silentSignIn -> {
         silentSignIn(result)
       }
+      Methods.signOut -> {
+        signOut()
+      }
+      Methods.isSignedIn -> {
+        isSignedIn(result)
+      }
       else -> result.notImplemented()
     }
   }
@@ -266,4 +293,6 @@ object Methods {
   const val showLeaderboards = "showLeaderboards"
   const val showAchievements = "showAchievements"
   const val silentSignIn = "silentSignIn"
+  const val signOut = "signOut"
+  const val isSignedIn = "isSignedIn"
 }
