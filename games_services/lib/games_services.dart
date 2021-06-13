@@ -62,7 +62,10 @@ class GamesServices {
 
   /// Check if the user is signed in
   static Future<bool> isSignedIn() async {
-    await GamesServicesPlatform.instance.isSignedIn();
+    print("checking");
+    var test = await GamesServicesPlatform.instance.isSignedIn();
+    print("returned info : ");
+    print(test);
     return true;
   }
 
